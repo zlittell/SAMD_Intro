@@ -60,8 +60,25 @@ void main(void)
 {    
     configureClocks();
     
+    PORT_REGS->GROUP[0].PORT_DIRSET = PORT_PA16;
+    PORT_REGS->GROUP[0].PORT_OUTCLR = PORT_PA16;
+    
     while(1)
     {
+        for(uint8_t i = 0; i<255; i++)
+        {
+            Nop();
+        }
+                
+        while(1)
+        {
+            PORT_REGS->GROUP[0].PORT_OUTTGL = PORT_PA16;
+            for(uint32_t i = 0; i<2000; i++)
+            {
+                Nop();
+            }
+        }
+        
         Nop();
     }
 }
