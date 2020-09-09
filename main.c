@@ -20,6 +20,7 @@
 
 #include <xc.h>
 #include <SAMD11D14AM.h>
+#include "main.h"
 
 void configureClocks(void)
 {
@@ -35,6 +36,9 @@ void configureClocks(void)
             SYSCTRL_OSC8M_PRESC(3) | SYSCTRL_OSC8M_ONDEMAND(1) | SYSCTRL_OSC8M_RUNSTDBY(0) | 
             SYSCTRL_OSC8M_ENABLE(1));
     while(!(SYSCTRL_REGS->SYSCTRL_PCLKSR & SYSCTRL_PCLKSR_OSC8MRDY(1))); //Wait for steady
+    
+    GCLK_REGS->GCLK_GENDIV = (GCLK_GENDIV_DIV(0) | GCLK_GENDIV_ID(0));
+    GCLK_REGS->GCLK_GENCTRL = (GCLK_GENCTRL_GENEN(1) | GCLK_GENCTRL_SRC_OSC8M | GCLK_GENCTRL_ID(0));
     
     /* Configure DFLL 48MHz
      * Wait until DFLL is locked to output clock
@@ -56,29 +60,40 @@ void configureClocks(void)
             SYSCTRL_DFLLCTRL_MODE(0) | SYSCTRL_DFLLCTRL_ENABLE(1));
 }
 
+void init_TC2(void)
+{    
+    // Set TC1/2 Generic Clock to GEN0 (8MHz)
+    GCLK_REGS->GCLK_CLKCTRL = 
+            (GCLK_CLKCTRL_WRTLOCK(0) | GCLK_CLKCTRL_CLKEN(1) | 
+            GCLK_CLKCTRL_GEN_GCLK0| GCLK_CLKCTRL_ID_TC1_TC2);
+    
+    //Enable TC2 Bus Clock
+    PM_REGS->PM_APBCMASK |= PM_APBCMASK_TC2(1);
+    
+    TC2_REGS->COUNT16.TC_CTRLBSET = (TC_CTRLBSET_CMD_RETRIGGER);
+    
+    TC2_REGS->COUNT16.TC_INTENSET = (TC_INTENSET_ERR(1) | TC_INTENSET_OVF(1));
+    
+    TC2_REGS->COUNT16.TC_CC[2] = 1000;
+    
+    TC2_REGS->COUNT16.TC_CTRLA = 
+            (TC_CTRLA_PRESCSYNC_PRESC | TC_CTRLA_RUNSTDBY(0) | 
+            TC_CTRLA_PRESCALER_DIV1024 | TC_CTRLA_WAVEGEN_NFRQ | 
+            TC_CTRLA_MODE_COUNT16 | TC_CTRLA_ENABLE(1) | 
+            TC_CTRLA_SWRST(0));
+}
+
 void main(void)
 {    
     configureClocks();
+    init_TC2();
+    enable_interrupts();
     
     PORT_REGS->GROUP[0].PORT_DIRSET = PORT_PA16;
     PORT_REGS->GROUP[0].PORT_OUTCLR = PORT_PA16;
     
     while(1)
-    {
-        for(uint8_t i = 0; i<255; i++)
-        {
-            Nop();
-        }
-                
-        while(1)
-        {
-            PORT_REGS->GROUP[0].PORT_OUTTGL = PORT_PA16;
-            for(uint32_t i = 0; i<2000; i++)
-            {
-                Nop();
-            }
-        }
-        
+    {        
         Nop();
     }
 }
