@@ -19,7 +19,7 @@
 
 
 #include <xc.h>
-#include <SAMD11D14AM.h>
+//#include <SAMD11D14AM.h>
 #include "main.h"
 
 void configureClocks(void)
