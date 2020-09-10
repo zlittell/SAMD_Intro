@@ -17,10 +17,12 @@
 #pragma config BOD33_HYST = DISABLED
 #pragma config NVMCTRL_REGION_LOCKS = 0xFFFF // Enter Hexadecimal value
 
+#define CFG_TUSB_MCU OPT_MCU_SAMD11
 
 #include <xc.h>
 #include <SAMD11D14AM.h>
 #include "main.h"
+#include "tusb.h"
 
 void configureClocks(void)
 {
