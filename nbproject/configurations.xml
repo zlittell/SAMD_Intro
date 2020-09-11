@@ -5,6 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>main.h</itemPath>
+      <itemPath>tusb_config.h</itemPath>
+      <itemPath>usb_descriptors.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -15,6 +17,16 @@
                    projectFiles="true">
       <itemPath>main.c</itemPath>
       <itemPath>interrupt_handlers.c</itemPath>
+      <itemPath>USB.c</itemPath>
+      <itemPath>usb_descriptors.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f1" displayName="TinyUSB" projectFiles="true">
+      <itemPath>tinyusb/src/tusb.c</itemPath>
+      <itemPath>tinyusb/src/common/tusb_fifo.c</itemPath>
+      <itemPath>tinyusb/src/device/usbd.c</itemPath>
+      <itemPath>tinyusb/src/device/usbd_control.c</itemPath>
+      <itemPath>tinyusb/src/class/hid/hid_device.c</itemPath>
+      <itemPath>tinyusb/src/portable/microchip/samd/dcd_samd.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -39,8 +51,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
         <pack name="SAMD11_DFP" vendor="Microchip" version="2.3.40"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -96,6 +108,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3fff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/zlitt/MPLABXProjects/FiredUp.X/debug/default/FiredUp_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -237,7 +251,8 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="common-include-directories" value="."/>
+        <property key="common-include-directories"
+                  value=".;tinyusb\src;tinyusb\hw;tinyusb\hw\mcu\microchip\samd11;tinyusb\hw\mcu\microchip\samd11\config;tinyusb\hw\mcu\microchip\samd11\include;tinyusb\hw\mcu\microchip\samd11\hal\include;tinyusb\hw\mcu\microchip\samd11\hal\utils\include;tinyusb\hw\mcu\microchip\samd11\hpl\pm;tinyusb\hw\mcu\microchip\samd11\hpl\port;tinyusb\hw\mcu\microchip\samd11\hri;tinyusb\hw\mcu\microchip\samd11\CMSIS\Core\Include"/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
         <property key="mdtcm" value=""/>
