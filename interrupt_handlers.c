@@ -19,4 +19,5 @@ void TC2_Handler()
 void enable_interrupts(void)
 {
     NVIC_EnableIRQ(TC2_IRQn);
+    NVIC_EnableIRQ(USB_IRQn);
 }

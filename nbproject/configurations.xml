@@ -7,6 +7,7 @@
       <itemPath>main.h</itemPath>
       <itemPath>tusb_config.h</itemPath>
       <itemPath>usb_descriptors.h</itemPath>
+      <itemPath>system_configuration.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +20,7 @@
       <itemPath>interrupt_handlers.c</itemPath>
       <itemPath>USB.c</itemPath>
       <itemPath>usb_descriptors.c</itemPath>
+      <itemPath>system_configuration.c</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="TinyUSB" projectFiles="true">
       <itemPath>tinyusb/src/tusb.c</itemPath>
@@ -51,8 +53,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
         <pack name="SAMD11_DFP" vendor="Microchip" version="2.3.40"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
