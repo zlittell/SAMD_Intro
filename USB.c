@@ -1,3 +1,4 @@
+#include <sam.h>
 #include <tusb.h>
 
 void USB_Handler(void)

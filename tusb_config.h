@@ -31,6 +31,7 @@
 #endif
 
 #define CFG_TUSB_MCU OPT_MCU_SAMD11
+#define CFG_TUSB_OS OPT_OS_NONE
 
 //--------------------------------------------------------------------
 // COMMON CONFIGURATION

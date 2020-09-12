@@ -32,11 +32,15 @@ void main(void)
     
     enable_interrupts();
     
+    tusb_init();
+    
     PORT->Group[0].DIRSET.reg = PORT_PA16;
     PORT->Group[0].OUTCLR.reg = PORT_PA16;
     
     while(1)
     {       
         __NOP();
+        
+        tud_task();
     }
 }
