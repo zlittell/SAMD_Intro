@@ -14,7 +14,7 @@ void configureClocks(void)
     SYSCTRL->OSC8M.reg = 
             ((SYSCTRL->OSC8M.reg & SYSCTRL_OSC8M_FRANGE_Msk) | 
             (SYSCTRL->OSC8M.reg & SYSCTRL_OSC8M_CALIB_Msk) | 
-            SYSCTRL_OSC8M_PRESC_3_Val | SYSCTRL_OSC8M_ENABLE);
+            SYSCTRL_OSC8M_PRESC_3 | SYSCTRL_OSC8M_ENABLE);
     while(!(SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_OSC8MRDY)); //Wait for steady
     
     //OSC32K (could use always on low power clock instead but has less accuracy)
