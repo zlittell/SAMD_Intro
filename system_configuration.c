@@ -24,10 +24,10 @@ void configureClocks(void)
     //1)set up reference GCLKs
     //48MHz on Gen0
     GCLK->GENDIV.reg = GCLK_GENDIV_DIV(1) | GCLK_GENDIV_ID(0);
-    GCLK->GENCTRL.reg = (GCLK_GENCTRL_GENEN | GCLK_GENCTRL_SRC_DFLL48M | GCLK_GENCTRL_ID(0));
+    GCLK->GENCTRL.reg = (GCLK_GENCTRL_OE | GCLK_GENCTRL_GENEN | GCLK_GENCTRL_SRC_DFLL48M | GCLK_GENCTRL_ID(0));
     //32KHz on Gen3
     GCLK->GENDIV.reg = (GCLK_GENDIV_DIV(0) | GCLK_GENDIV_ID(3));
-    GCLK->GENCTRL.reg = (GCLK_GENCTRL_GENEN | GCLK_GENCTRL_SRC_OSC32K | GCLK_GENCTRL_ID(3));
+    GCLK->GENCTRL.reg = (GCLK_GENCTRL_GENEN | GCLK_GENCTRL_OE | GCLK_GENCTRL_SRC_OSC32K | GCLK_GENCTRL_ID(3));
     
     //DFLL enabled in SYSCTRL
     SYSCTRL->DFLLCTRL.reg = 
@@ -40,7 +40,9 @@ void configureClocks(void)
     //Use DFLLVAL from TINYUSB source. Not sure why but hey whatever.
     //DS says these are readonly when in closed loop mode???????
     SYSCTRL->DFLLVAL.reg = 
-            (SYSCTRL_DFLLVAL_COARSE(0xA) | SYSCTRL_DFLLVAL_FINE(0x200));
+            (SYSCTRL_DFLLVAL_COARSE(500) | SYSCTRL_DFLLVAL_FINE(32));
+    //SYSCTRL->DFLLVAL.reg = 
+    //        (SYSCTRL_DFLLVAL_COARSE(0xA) | SYSCTRL_DFLLVAL_FINE(0x200));
     while (!(SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_DFLLRDY));
 
 
@@ -59,9 +61,7 @@ void configureClocks(void)
     PORT->Group[0].PINCFG[25].reg = 0x01; //mux enabled no pull up/down
     
     //Pins 24/25 is group 12 and USB is function G
-    PORT->Group[0].PMUX[12].reg = (PORT_PMUX_PMUXO_G | PORT_PMUX_PMUXE_G);
-    
-    
+    PORT->Group[0].PMUX[12].reg = (PORT_PMUX_PMUXO_G | PORT_PMUX_PMUXE_G);   
 }
 
 void init_TC2(void)
