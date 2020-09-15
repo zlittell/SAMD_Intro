@@ -27,17 +27,18 @@
 void main(void)
 {    
     //Set up clock outputs
-    //clock 0 should be 48mhz
+    //clock 0 8MHz
     PORT->Group[0].DIRSET.reg = PORT_PA08;
     PORT->Group[0].PINCFG[8].reg |= PORT_PINCFG_PMUXEN;
-    PORT->Group[0].PMUX[4].reg = PORT_PMUX_PMUXE_H;
+    //PORT->Group[0].PMUX[4].reg = PORT_PMUX_PMUXE_H;
+    //clock1 48MHz
+    PORT->Group[0].DIRSET.reg = PORT_PA09;
+    PORT->Group[0].PINCFG[9].reg = PORT_PINCFG_PMUXEN;
+    PORT->Group[0].PMUX[4].reg = (PORT_PMUX_PMUXE_H | PORT_PMUX_PMUXO_H);
     //clock 3 should be 32khz
     PORT->Group[0].DIRSET.reg = PORT_PA17;
     PORT->Group[0].PINCFG[17].reg |= PORT_PINCFG_PMUXEN;
     PORT->Group[0].PMUX[8].reg = PORT_PMUX_PMUXO_H;
-    
-    //GCLK->GENDIV.reg = GCLK_GENDIV_DIV(1) | GCLK_GENDIV_ID(0);
-    //GCLK->GENCTRL.reg = GCLK_GENCTRL_OE | GCLK_GENCTRL_GENEN | GCLK_GENCTRL_SRC_OSC8M | GCLK_GENCTRL_ID(GCLK_CLKCTRL_GEN_GCLK0_Val);
     
     configureClocks();
     init_IO();

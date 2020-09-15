@@ -53,8 +53,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD11_DFP" vendor="Microchip" version="2.3.40"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAMD11_DFP" vendor="Microchip" version="2.3.40"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -110,8 +110,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3fff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/zlitt/MPLABXProjects/FiredUp.X/debug/default/FiredUp_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
